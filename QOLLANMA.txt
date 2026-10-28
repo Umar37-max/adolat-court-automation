@@ -1,0 +1,107 @@
+﻿ADOLAT AVTOMAT - da'vo arizalarini cabinet.sud.uz ga avtomatik yuborish
+========================================================================
+
+KERAK: Windows 10/11, Google Chrome, internet. Python kerak emas.
+ISHGA TUSHIRISH: AdolatAvtomat.exe ni ikki marta bosing - dastur oynasi ochiladi.
+
+
+1. BIRINCHI MARTA
+-----------------
+  "Sozlamalar (login, parol)" tugmasi -> ONE ID login va parolni yozing -> Saqlash.
+  Parol shifrlab saqlanadi va keyin har safar o'zi kiritiladi.
+
+
+2. MIJOZ QO'SHISH
+-----------------
+  1) "Mijozlar papkasi" tugmasi -> mijozning ZIP faylini (masalan RN-26_00000.zip) shu papkaga
+     tashlang. Dastur ZIP ni o'zi ochadi. (Yoki ZIP o'rniga hujjatlar papkasini tashlasangiz ham bo'ladi.)
+     Fayl nomidagi so'z bo'yicha turi o'zi aniqlanadi: "Даъво аризаси", "шартномаси", "talabnoma",
+     "1 с карздорлик", "pochta kvitansiya", raqamli kvitansiya (262000000001.pdf), oferta, SSP, ishonchnoma...
+  2) "Yangilash" tugmasi -> mijozlar jadvalda paydo bo'ladi.
+     Javobgar, JShShIR, pasport, asosiy qarz, pochta xarajati - "ДАЪВО АРИЗА.docx" va PDF dan O'ZI olinadi.
+     Word fayl yo'q va ariza PDF skaner (rasm) bo'lsa: FIO, pasport, JShShIR, manzil - "shartnoma"
+     (dalolatnoma) dan, asosiy qarz va pochta - arizaning o'zidan Windows OCR bilan o'qiladi.
+  SUD (1-qadam: Viloyat va Sud nomi) - DA'VO ARIZADA yozilgan sud ("... tumanlararo sudiga") olinadi
+     (kvitansiya ham shu sudga). Arizada sud yozilmagan bo'lsa - javobgar MANZILI bo'yicha:
+     Toshkent SHAHRI (Yashnobod, Chilonzor, Yunusobod... qaysi tumani bo'lmasin) - har doim
+     Shayxontohur tumanlararo sudi (oferta 8.6: sotuvchi yuridik manzili; sozlamalar: sud).
+     Toshkent VILOYATI va boshqa viloyatlar - tuman/shahar bo'yicha
+     Sozlamalarda "HAMMA mijozlar - Toshkent shahar, Shayxontohur sudi" belgisi qo'yilsa - hamma
+     mijoz (qaysi viloyatdan bo'lmasin) shu sudga; belgi olinsa - yana har biri manzili bo'yicha.
+     (Fuqarolik_sudlari_yurisdiksiya.xlsx). Aniqlanmasa - qatorni 2 marta bosib 'Sud' ga yozing.
+  3) ARIZA RAQAMI va SANASI (arizada QO'LDA yozilgan) - dastur o'zi o'qiydi (OCR, fonda):
+     * Dastur ochilganda yangi arizalar fonda o'qiladi - pastda o'ngda "OCR: 37/600" ko'rinadi.
+       Shu payt ro'yxat bilan ishlash mumkin, faqat BOSHLASH/TEST OCR tugagach yoqiladi.
+       Har ariza ~3-4 soniya, bir marta o'qiladi (natija ocr_*_kesh.json da saqlanadi).
+     * Ishonchli o'qilganlari - "tayyor (OCR)" (och yashil) - tasdiqsiz ishlanadi.
+     * Ishonchi pastlari - "TEKSHIRING" (to'q sariq) - RO'YXAT BOSHIDA turadi:
+       "✍ Raqam va sanani kiritish" -> rasm + eng ehtimolli variant OLDINDAN YOZILGAN,
+       shubhali maydon sariq, pastida boshqa variantlar foizi bilan ->
+       to'g'ri bo'lsa shunchaki Enter, xato bo'lsa tuzating -> Enter -> keyingisi o'zi ochiladi.
+     * Bir kunda yozilgan arizalar raqamlari ketma-ket bo'ladi (100101, 100102 ...): bittasini
+       tasdiqlasangiz, raqami yaqin qo'shnilarining sanasi va raqami qayta baholanadi - ko'pincha
+       ular o'zi "tayyor" bo'ladi va navbatdan tushib qoladi.
+     * Sozlamalar: ocr_avto = Yo'q - hammasini odam tasdiqlaydi; ocr_ishonch = 0.90 - avtomatik
+       qabul qilish chegarasi (oshirsangiz - kamroq avtomatik, lekin ishonchliroq).
+  Barcha hujjatlar (ishonchnoma, oferta, SSP, guvohnoma ham) mijozning ZIP ida bo'lishi kifoya.
+  KVITANSIYA (pochta xarajati) - ALOHIDA dastur: KvitansiyaYaratish\KvitansiyaYaratish.exe
+     (AdolatAvtomat papkasi ichida). Sudga topshirishdan OLDINROQ ishga tushiring:
+     * har mijozning da'vo arizasi/shartnomasidan manzil -> sud aniqlanadi (AdolatAvtomat bilan bir xil;
+       "HAMMA mijozlar - Toshkent shahar, Shayxontohur" belgisi bo'lsa - hammasiga Shayxontohur);
+     * papkadagi kvitansiya shu sudga, 44 000 so'm, muddati o'tmagan bo'lsa - yangisi yaratilmaydi;
+     * aks holda billing.sud.uz da yaratiladi, PDF mijoz papkasiga <raqam>.pdf bo'lib saqlanadi;
+     * "Robot emasman" dan keyingi MATEMATIK MISOLNI odam yechadi (sariq panel + signal).
+     AdolatAvtomat 4-qadamda kvitansiyani MIJOZ PAPKASIDAN oladi (bir nechta bo'lsa - sudi mos kelganini).
+     Yangi yaratilgan kvitansiyani sud sayti darhol qabul qilmasligi mumkin - shuning uchun oldinroq yarating.
+
+
+3. ISHLASH
+----------
+  "▶ BOSHLASH" tugmasi - har bir mijoz uchun hammasi bir yo'la:
+     saytda to'ldiriladi -> hujjatlar yuklanadi -> saqlanadi -> sudga yuboriladi.
+     Boshida bir marta "Boshlaymizmi?" - keyin hamma arizalar SO'RALMASDAN yuboriladi va dastur o'zi
+     keyingi mijozga o'tadi. CAPTCHA ("Robot emasman" / misol) - SIZ belgilaysiz:
+     sariq panel va signal chiqadi, belgilaganingizdan keyin dastur o'zi davom etadi.
+     * Sayt qotib qolsa (element chiqmadi) - shu mijoz o'zi bir marta QAYTADAN boshlanadi.
+     * Biror qadam o'tmasa yoki sayt pastda xato yozsa - HECH NARSA SO'RALMAYDI: shu mijoz XATO bo'ladi
+       (sababi - saytning o'z xabari - natijaga yoziladi) va dastur DARHOL keyingi mijozga o'tadi.
+       XATO bo'lganlar keyingi BOSHLASH da qaytadan urinadi. Navbat to'xtamaydi.
+       (Kutib, qo'lda tuzatmoqchi bo'lsangiz: Sozlamalar -> "Xatoda kutish, soniya" = 30 kabi son.)
+     * Chrome yopilib/uzilib qolsa (masalan, Chrome yangilanayotganda) - dastur o'zi qayta ochadi,
+       qayta kiradi va shu mijozni yana bir marta boshlaydi.
+     * Javobgar JShShIR bo'yicha topilmasa (vafot etgan, JShShIR xato) - natija TOPILMADI (vafot?),
+       saytning xabari yoziladi, keyingi mijozga o'tiladi; bu mijoz keyingi safar qayta ishlanmaydi.
+     * Faqat odamsiz iloji yo'q joyda kutadi: ONE ID/SMS kirish, ERI (E-IMZO) imzo, CAPTCHA misoli.
+     * Saytda saqlangan murojaat qayta urinishda o'zi ochiladi - bir xil ariza ikki marta yaratilmaydi.
+     * Har biri oldidan so'rashni xohlasangiz: Sozlamalar -> "Har arizani yuborishdan oldin so'rash" = Ha.
+
+  "🧪 TEST (yubormasdan)" tugmasi - hammasi xuddi BOSHLASH kabi (1-6 qadamlar), murojaat kabinetda
+     SAQLANADI, lekin sudga YUBORILMAYDI. Keyin "▶ BOSHLASH" bosilsa - shu saqlangan murojaat ochilib yuboriladi.
+  "🧪 TEST: 5-qadamgacha" tugmasi - BITTA mijoz (tanlangani yoki birinchisi) 1-5 qadamlardan o'tadi,
+     hamma hujjatlar yuklanadi va shu yerda TO'XTAYDI: murojaat SAQLANMAYDI, sudga YUBORILMAYDI.
+  * BOSHLASH - jadvaldagi HAMMA tayyor mijozlar ketma-ket, to'xtovsiz va hech narsa so'ramasdan ishlanadi
+    (bitta qatorni bosib qo'yganingiz ta'sir qilmaydi). Faqat ba'zi mijozlar uchun: 2 va undan ko'p
+    qatorni belgilang (Ctrl + bosish), keyin tugmani bosing. Oxirida Chrome o'zi yopiladi.
+  * "To'xtatish" - bosilgan zahoti HAMMASI darhol to'xtaydi va Chrome yopiladi (hech narsa so'ralmaydi).
+  * "Qayta ishlash" belgilansa - avval bajarilganlar ham qaytadan ishlanadi.
+
+
+4. RANGLAR VA NATIJALAR
+-----------------------
+  yashil = YUBORILDI     ko'k = SAQLANDI     qizil = XATO     sariq = TO'LDIRING / kamchilik
+  jigarrang = TOPILMADI (vafot?) - javobgar saytda yo'q
+  YUBORILDI bo'lganlar hech qachon qayta yuborilmaydi.
+  "Natijalar" - har mijoz natijasi (Excel).  "Loglar" - har sahifaning skrinshoti (xato bo'lsa).
+  Pastki qora oynada nima bo'layotgani yozilib turadi.
+
+
+5. MUHIM
+--------
+  * TEZLIK - Sozlamalarda: "Pauza min/max" (har bosishdan keyin), "Harf orasidagi pauza" (yozish),
+    "Kutishlar koeffitsienti" (0.5 = tez, 1 = eski sekin). Sayt ulgurmay qolsa (tanlanmay qoladi,
+    "TOPILMADI" chiqadi) - koeffitsientni 0.7-1 ga, pauzalarni 0.5-1 ga qaytaring.
+  * Sayt sekin bo'lsa: Sozlamalar -> "Kutish (soniya)" ni oshiring (masalan 60).
+  * Biror joyda to'xtasa - sariq panelda nima qilish kerakligi yoziladi.
+  * 5 MB dan katta PDF ni sayt qabul qilmasligi mumkin - siqib qo'ying.
+  * Dastur oddiy Google Chrome ni alohida profil bilan ochadi (sizning shaxsiy Chrome'ingizga tegmaydi).
+    Bu profil saqlanib qoladi: kirish sessiyasi, sozlamalar, E-IMZO kengaytmasi (o'rnatsangiz) keyingi safar ham bo'ladi.

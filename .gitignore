@@ -1,0 +1,57 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# --- Secrets & local configuration ---
+.env
+.env.*
+!.env.example
+sozlamalar.ini
+kvitansiya_sozlamalar.ini
+parol.dat
+*.dat
+
+# --- Client / case data (personal data - never commit) ---
+mijozlar/
+umumiy_hujjatlar/
+KVITANSIYALAR/
+TAYYOR KVITANSIYALAR/
+_zip_arxiv/
+ishlar.xlsx
+_jadval_yoq.xlsx
+natijalar.csv
+kvitansiyalar.csv
+raqam_tarixi.json
+shablonlar/
+
+# --- OCR caches and debug output ---
+ocr_*_kesh.json
+ocr_*_kesh.json.tmp
+ocr_sintetik.json
+ocr_raqam_shablonlari.json
+debug_*.png
+
+# --- Logs ---
+loglar/
+*.log
+
+# --- Build output (PyInstaller) and distribution archives ---
+AdolatAvtomat/
+AdolatAvtomat2/
+KvitansiyaYaratish/
+tarqatish/
+build/
+dist/
+*.spec
+*.zip
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
