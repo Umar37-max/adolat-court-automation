@@ -132,7 +132,7 @@ ocr_*_kesh.json, raqam_tarixi.json   # OCR caches and submitted-number history
 **Requirements:** Windows 10/11, Google Chrome, Python 3.11+ (developed on 3.13).
 
 ```powershell
-git clone https://github.com/Umar37-max/adolat-court-automation.git
+git clone https://github.com/umar-rustamov/adolat-court-automation.git
 cd adolat-court-automation
 python -m venv .venv
 .venv\Scripts\activate
